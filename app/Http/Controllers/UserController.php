@@ -50,11 +50,16 @@ class UserController extends Controller
 		}
 		/*---------------------------bug分割线-----------------------*/
     	// 执行插入
-		//dd($user->save());
-    	/*if ($user->save()) {
+    	if ($user->save()) {
     		return redirect('user/index')->with('info', '添加成功');
     	} else {
     		return redirect()->back()->with('info', '添加失败');
-		}*/
+		}
 	}
+	// 用户的列表显示
+	public function index(Request $request)
+	{
+		echo "6666";
+	}
+
 }
