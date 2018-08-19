@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('profile')->comment('头像');
             $table->text('intro')->comment('个人介绍');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

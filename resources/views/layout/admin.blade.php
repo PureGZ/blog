@@ -43,22 +43,22 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="">用户管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="{{url('/user/add')}}">用户添加</a></dd>
-            <dd><a href="{{url('/user')}}">用户列表</a></dd>
+            <dd><a href="{{url('/admin/user/add')}}">用户添加</a></dd>
+            <dd><a href="{{url('/admin/user/list')}}">用户列表</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item">
+        <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">文章管理</a>
           <dl class="layui-nav-child">
             <dd><a href="javascript:loadView('PYFA');">文章添加</a></dd>
             <dd><a href="javascript:loadView('YXFA');">文章列表</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item layui-nav-itemed">
+        <li class="layui-nav-item">
           <a class="" href="javascript:;">用户管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:loadView('');">用户列表</a></dd>
-            <dd><a href="javascript:loadView('');">用户添加</a></dd>
+            <dd><a href="javascript:loadView('');">分类添加</a></dd>
+            <dd><a href="javascript:loadView('');">分类列表</a></dd>
           </dl>
         </li>
       </ul>
@@ -68,6 +68,11 @@
   <div class="layui-body" id="contentView">
     <!-- 内容主体区域 -->
     <div style="padding: 30px;font-size: 40px;">
+      @if(session('info'))
+      <div class="">
+        {{ session('info') }}
+      </div>
+      @endif
       @section('content')
       @show
     </div>

@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="_token" content="{{ csrf_token() }}"/>
-  <title>blog</title>
+  <title>@yield('title')</title>
   <link rel="stylesheet" href="{{asset('/layui/css/layui.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('/css/global.css')}}">
 </head>
@@ -13,13 +13,13 @@
     <div class="layui-logo" style="font-size: 30px;color: #dedede;">Myblog</div>
     <ul class="layui-nav layui-layout-left">
      <li class="layui-nav-item"><a href="javascript:loadView('KQHD');">考勤</a></li> 
-	 <li class="layui-nav-item">
-	   <a href="javascript:;">设置</a>
-	   <dl class="layui-nav-child">
-	     <dd><a href="">消息管理</a></dd>
-	     <dd><a href="">授权管理</a></dd>
-	   </dl>
-	 </li>
+   <li class="layui-nav-item">
+     <a href="javascript:;">设置</a>
+     <dl class="layui-nav-child">
+       <dd><a href="">消息管理</a></dd>
+       <dd><a href="">授权管理</a></dd>
+     </dl>
+   </li>
     </ul>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
@@ -43,22 +43,22 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="">用户管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="{{url('/user/add')}}">用户添加</a></dd>
-            <dd><a href="{{url('/user')}}">用户列表</a></dd>
+            <dd><a href="{{url('/admin/user/add')}}">用户添加</a></dd>
+            <dd><a href="{{url('/admin/user/list')}}">用户列表</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item">
+        <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">文章管理</a>
           <dl class="layui-nav-child">
             <dd><a href="javascript:loadView('PYFA');">文章添加</a></dd>
             <dd><a href="javascript:loadView('YXFA');">文章列表</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item layui-nav-itemed">
+        <li class="layui-nav-item">
           <a class="" href="javascript:;">用户管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:loadView('');">用户列表</a></dd>
-            <dd><a href="javascript:loadView('');">用户添加</a></dd>
+            <dd><a href="javascript:loadView('');">分类添加</a></dd>
+            <dd><a href="javascript:loadView('');">分类列表</a></dd>
           </dl>
         </li>
       </ul>
@@ -67,7 +67,10 @@
 
   <div class="layui-body" id="contentView">
     <!-- 内容主体区域 -->
-    <div style="padding: 30px;font-size: 40px;">模块</div>
+    <div style="padding: 30px;font-size: 40px;">
+      @section('content')
+      @show
+    </div>
   </div>
 
   <div class="layui-footer">

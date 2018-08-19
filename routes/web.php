@@ -16,8 +16,11 @@ Route::get('/', function () {
 });
 
 // 后台路由规则
-Route::get('/admin','AdminController@index');
+Route::get('/admin', 'AdminController@index');
 // 用户的添加
-Route::get('/user/add','UserController@add');
-Route::post('/user/insert','UserController@insert');
-Route::get('/user/index','UserController@index');
+Route::get('admin/user/add', 'UserController@add');
+Route::post('user/insert', 'UserController@insert');
+Route::get('admin/user/list', 'UserController@list');
+Route::get('admin/user/edit/{id}', 'UserController@show');
+Route::post('user/update', 'UserController@update');
+Route::get('user/delete/{id}', 'UserController@delete');
