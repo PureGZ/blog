@@ -13,7 +13,7 @@
   <form action="/admin/user/list">
     <div class="layui-form-item">
       <label class="layui-form-label">
-        <select name="num" lay-verify="" style="font-size: 18px;">
+        <select name="num" lay-verify="" style="font-size: 17px;">
           <option value="5" @if ($request->input('num') == 5) selected @endif>单页5条
           </option>
           <option value="10" @if ($request->input('num') == 10) selected @endif>单页10条
@@ -22,12 +22,15 @@
           </option>
         </select>  
       </label>
-      <div id="" style="margin-left: 800px;">
+      <div id="" style="font-size: 17px;margin-left: 945px;">
         <label for="">
-          <input type="text" name="keyword" value="{{ $request->input('keyword') }}">
-          <button class="layui-btn layui-btn-xs">搜索</button>
+          <input type="text" name="keyword" value="{{ $request->input('keyword') }}"placeholder="请输入用户名中关键字">
+          <button class="">
+            <i class="layui-icon">&#xe615;</i>
+          </button>
         </label>
       </div>
+    </div>
   </form>
 
   <div class="layui-row" style="margin-top: 0px;">

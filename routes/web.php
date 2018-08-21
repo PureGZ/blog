@@ -15,12 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// 后台路由规则
+// 主页
 Route::get('/admin', 'AdminController@index');
-// 用户的添加
+// 用户管理
 Route::get('admin/user/add', 'UserController@add');
 Route::post('user/insert', 'UserController@insert');
 Route::get('admin/user/list', 'UserController@list');
 Route::get('admin/user/edit/{id}', 'UserController@show');
 Route::post('user/update', 'UserController@update');
-Route::get('user/delete/{id}', 'UserController@delete');
+Route::get('admin/user/delete/{id}', 'UserController@destroy');
+// 分类管理 -- resful控制器
+Route::resource('admin/cate', 'CateController@create');
+
+
+
+

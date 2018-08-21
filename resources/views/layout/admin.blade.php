@@ -48,17 +48,10 @@
           </dl>
         </li>
         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">文章管理</a>
+          <a class="" href="">分类管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:loadView('PYFA');">文章添加</a></dd>
-            <dd><a href="javascript:loadView('YXFA');">文章列表</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item">
-          <a class="" href="javascript:;">用户管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="javascript:loadView('');">分类添加</a></dd>
-            <dd><a href="javascript:loadView('');">分类列表</a></dd>
+            <dd><a href="{{url('/admin/cate/create')}}">分类添加</a></dd>
+            <dd><a href="{{url('/admin/cate/list/show')}}">分类列表</a></dd>
           </dl>
         </li>
       </ul>
@@ -74,6 +67,7 @@
       </div>
       @endif
       @section('content')
+      
       @show
     </div>
   </div>

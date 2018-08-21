@@ -53,9 +53,9 @@ class UserController extends Controller
 		}
     	// 执行插入--此处如果报错Inflector.php,将php版本更新到最新即可
     	if ($user->save()) {
-    		return redirect('admin/user/list')->with('info', '添加成功');
+    		return redirect('admin/user/list')->with('info', '添加成功！');
     	} else {
-    		return redirect()->back()->with('info', '添加失败');
+    		return redirect()->back()->with('info', '添加失败！');
 		}
 	}
 
@@ -105,31 +105,30 @@ class UserController extends Controller
         }
 
         if ($user->save()) {
-            return redirect('admin/user/list')->with('info', '更新成功');
+            return redirect('admin/user/list')->with('info', '更新成功！');
         } else {
-            return redirect()->back()->with('info', '更新失败');
+            return redirect()->back()->with('info', '更新失败！');
         }
     }
 
     /*用户的删除*/
-    public function delete($id)
+    public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        // 读取用户头像信息
-        $profile = $user -> profile;
-        $path = $profile;
+        $user = User::find($id);
+        // 读取用户头像信息，存在则会删除
+        $path = $user -> profile;
         if (file_exists($path)) {
             unlink($path);
         }
-        $user -> delete();
+
+        // $user -> delete();
+        /*如果上面这行代码不注释掉，则在此处已经删除数据，再执行下面判断时则无数据可删除，所以结果是删除了，但是却显示删除失败！*/
+
         if ($user -> delete()) {
-            return redirect()->back()->with('info', '删除成功');
+            return redirect()->back()->with('info', '删除成功！');
         } else {
-            return redirect()->back()->with('info', '删除失败');
+            return redirect()->back()->with('info', '删除失败！');
         }
-        
     }
-
-
 
 }

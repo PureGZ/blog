@@ -69,6 +69,7 @@
     <!-- 内容主体区域 -->
     <div style="padding: 30px;font-size: 40px;">
       @section('content')
+        Welcome to my blog!
       @show
     </div>
   </div>
