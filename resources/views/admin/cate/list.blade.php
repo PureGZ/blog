@@ -10,7 +10,7 @@
     <hr>
   </div>
 
-  <form action="{{ url('/cate/index') }}">
+  <form action="{{ url('/cate') }}">
     <div class="layui-form-item">
       <label class="layui-form-label">
         <select name="num" lay-verify="" style="font-size: 17px;">
@@ -24,7 +24,7 @@
       </label>
       <div id="" style="font-size: 17px;margin-left: 945px;">
         <label for="">
-          <input type="text" name="keyword" value="{{ $request->input('keyword') }}"placeholder="请输入用户名中关键字">
+          <input type="text" name="keyword" value="{{ $request->input('keyword') }}"placeholder="请输入关键字">
           <button class="">
             <i class="layui-icon">&#xe615;</i>
           </button>
