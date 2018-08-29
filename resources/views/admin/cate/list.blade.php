@@ -1,16 +1,16 @@
 @extends('layout.admin')
 
-@section('title','用户列表')
+@section('title','分类列表')
 
 @section('content')
 <div class="" style="font-size: 25px;margin-top: 10px;margin-left: 20px;"> 
    
   <div style="font-size: 23px;margin-top: 10px;margin-left: 20px;">
-    <i class="layui-icon">&#xe613;</i> 用户列表
+    <i class="layui-icon">&#xe613;</i> 分类列表
     <hr>
   </div>
 
-  <form action="/admin/user/list">
+  <form action="{{ url('/admin/cate/index') }}">
     <div class="layui-form-item">
       <label class="layui-form-label">
         <select name="num" lay-verify="" style="font-size: 17px;">
@@ -43,39 +43,38 @@
           <col width="200">
           <col width="200">
           <col width="200">
-          <col width="200">
         </colgroup>
     		<thead class="">
     		  <tr class="layui-table tr">
     		    <th class="">ID</th>
-    		    <th class="">用户名</th>
-    		    <th class="">邮箱</th>
-    		    <th class="">头像</th>
+    		    <th class="">分类名</th>
+    		    <th class="">父级分类</th>
     		    <th class="">创建时间</th>
             <th class="">更新时间</th>
             <th class="">管理</th>
     		  </tr> 
     		</thead>
   	    <tbody class="layui-table tbody,layui-table tbody">
-            @foreach($users as $k => $v)
+            @foreach($cates as $k => $v)
             <tr class="@if($k % 2 == 0) layui-bg-gray @endif">
               <td class="layui-font-color">{{ $v->id }}</td>
-              <td class="layui-font-color">{{ $v->username }}</td>
-              <td class="layui-font-color">{{ $v->email }}</td>
-              <td class="layui-font-color"><img class="layui-table img" src="{{ $v->profile }}" alt=""></td>
+              <td class="layui-font-color">{{ $v->name }}</td>
+              <td class="layui-font-color">{{ getCateNameByCateID($v->pid) }}</td>
               <td class="layui-font-color">{{ $v->created_at }}</td>
               <td class="layui-font-color">{{ $v->updated_at }}</td>
               <td class="layui-font-color">
-                <a href="/admin/user/edit/{{ $v->id }}">
+                <a href="/cate/{{ $v->id }}/edit">
                   <button class="layui-btn layui-btn-primary layui-btn-sm">
                     <i class="layui-icon">&#xe642;</i>
                   </button>
                 </a>
-                <a href="/admin/user/delete/{{ $v->id }}">
+                <form action="/cate/{{ $v->id }}" method="post">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="_method" value="DELETE">
                   <button class="layui-btn layui-btn-primary layui-btn-sm">
                     <i class="layui-icon">&#xe640;</i>
                   </button>
-                </a>
+                </form>
               </td>
             </tr>
             @endforeach

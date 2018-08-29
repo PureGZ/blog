@@ -51,7 +51,7 @@
           <a class="" href="">分类管理</a>
           <dl class="layui-nav-child">
             <dd><a href="{{url('/admin/cate/create')}}">分类添加</a></dd>
-            <dd><a href="{{url('/admin/cate/list/show')}}">分类列表</a></dd>
+            <dd><a href="{{url('/admin/cate/index')}}">分类列表</a></dd>
           </dl>
         </li>
       </ul>

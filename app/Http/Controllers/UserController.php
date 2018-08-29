@@ -124,11 +124,12 @@ class UserController extends Controller
         // $user -> delete();
         /*如果上面这行代码不注释掉，则在此处已经删除数据，再执行下面判断时则无数据可删除，所以结果是删除了，但是却显示删除失败！*/
 
-        if ($user -> delete()) {
+        if ($user->delete()) {
             return redirect()->back()->with('info', '删除成功！');
         } else {
             return redirect()->back()->with('info', '删除失败！');
         }
+        // 使用的软删除，但是头像文件不会恢复，需要重新上传
     }
 
 }
