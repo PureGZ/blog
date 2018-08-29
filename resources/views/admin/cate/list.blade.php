@@ -6,11 +6,11 @@
 <div class="" style="font-size: 25px;margin-top: 10px;margin-left: 20px;"> 
    
   <div style="font-size: 23px;margin-top: 10px;margin-left: 20px;">
-    <i class="layui-icon">&#xe613;</i> 分类列表
+    <i class="layui-icon">&#xe60a;</i> 分类列表
     <hr>
   </div>
 
-  <form action="{{ url('/admin/cate/index') }}">
+  <form action="{{ url('/cate/index') }}">
     <div class="layui-form-item">
       <label class="layui-form-label">
         <select name="num" lay-verify="" style="font-size: 17px;">
@@ -38,8 +38,8 @@
       <table class="layui-table-7">
         <colgroup>
           <col width="50">
-          <col width="200">
-          <col width="200">
+          <col width="150">
+          <col width="150">
           <col width="200">
           <col width="200">
           <col width="200">
@@ -47,7 +47,7 @@
     		<thead class="">
     		  <tr class="layui-table tr">
     		    <th class="">ID</th>
-    		    <th class="">分类名</th>
+    		    <th class="">分类名称</th>
     		    <th class="">父级分类</th>
     		    <th class="">创建时间</th>
             <th class="">更新时间</th>
@@ -80,9 +80,6 @@
             @endforeach
       	</tbody>
       </table>
-      <div id="pages">
-        {{ $users->appends($request->only(['num', 'keyword']))->links() }}
-      </div>
     </div>
   </div>
 </div>

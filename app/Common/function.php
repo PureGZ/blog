@@ -6,5 +6,11 @@
 		if ($id == 0) {
 			return '顶级分类';
 		}
-		return \App\Cate::find($id)->name;
+		$cate = \App\Cate::find($id);
+		if (empty($cate)) {
+			return '无';
+		} else {
+			return $cate->name;
+		}
+		
 	}

@@ -10,14 +10,14 @@ class CateController extends Controller
 {
     /*显示分类列表*/
     public function index(Request $request)
-    {
+    {        
         // 读取分类
-        $cates = Cate::select(DB::raw('*, concat(path,",",id) as paths'))->orderBy('paths')->get();
+        $cates = Cate::select(DB::raw('*, concat(path,"_",id) as paths'))->orderBy('paths')->get();
         // 遍历数组，调整分类名
         foreach ($cates as $key => $value) {
             // 判断当前分类等级
             $tmp = count(explode('_', $value->path)) - 1;
-            $prefix = str_repeat('|---', $tmp);
+            $prefix = str_repeat('$~', $tmp);
             $value -> name = $prefix.$value->name;
         }
         // 解析模板
@@ -27,7 +27,7 @@ class CateController extends Controller
     /*创建分类页面*/
     public function create()
     {
-        // 读取分类
+        // 读取所有分类
         $cates = Cate::get();
         // 解析模板
     	return view('admin.cate.add', ['cates' => $cates]);
@@ -36,10 +36,11 @@ class CateController extends Controller
     /*将分类信息存入数据库*/
     public function store(Request $request)
     {
+
     	$data = $request -> all();
         // 如果添加的是顶级分类，pid和path都是0
         if ($data['pid'] == 0) {
-            $data['path'] = 0;
+            $data['path'] = '0';
         }else {
             // 如果不是顶级分类，读取父级分类的信息
             $info = Cate::find($data['pid']);
@@ -64,24 +65,23 @@ class CateController extends Controller
         # code...
     }
 
-    /**/
+    /*将数据引入分类信息修改界面*/
     public function edit($id)
     {
         // 读取当前分类信息
-        $info = Cate::finOrFail($id);
+        $info = Cate::findOrFail($id);
         // 读取
         $cates = Cate::get();
         // 解析模板
         return view('admin.cate.edit', ['info'=>$info, 'cates'=>$cates]);
     }
 
-    /**/
+    /*分类数据更新*/
     public function update(Request $request, $id)
     {
-        //
         $cate = Cate::findOrFail($id);
-        $cate -> name = $request->name;
-        $cate -> pid = $request->pid;
+        $cate->name = $request->name;
+        $cate->pid = $request->pid;
         if ($cate->save()) {
             return redirect('/cate')->with('info', '分类更新成功！');
         } else {
@@ -89,7 +89,7 @@ class CateController extends Controller
         }
     }
 
-    /**/
+    /*分类数据删除*/
     public function destroy($id)
     {
         // 删除分类
@@ -98,9 +98,9 @@ class CateController extends Controller
         $path = $cate->path.'_'.$cate->id;
         DB::table('cates')->where('path','like',$path.'%')->delete();
         if ($cate->delete()) {
-            return redirect()->back()->with('info', '删除成功！');
+            return redirect()->back()->with('info', '分类删除成功！');
         } else {
-            return redirect()->back()->with('info', '删除失败！');
+            return redirect()->back()->with('info', '分类删除失败！');
         }
     }
 }

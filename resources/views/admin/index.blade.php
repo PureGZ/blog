@@ -48,17 +48,31 @@
           </dl>
         </li>
         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">文章管理</a>
+          <a class="" href="">分类管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:loadView('PYFA');">文章添加</a></dd>
-            <dd><a href="javascript:loadView('YXFA');">文章列表</a></dd>
+            <dd><a href="{{url('/admin/cate/create')}}">分类添加</a></dd>
+            <dd><a href="{{url('/admin/cate/index')}}">分类列表</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item">
-          <a class="" href="javascript:;">用户管理</a>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="">标签管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:loadView('');">分类添加</a></dd>
-            <dd><a href="javascript:loadView('');">分类列表</a></dd>
+            <dd><a href="">标签添加</a></dd>
+            <dd><a href="">标签列表</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="">文章管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="">文章添加</a></dd>
+            <dd><a href="">文章列表</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="">评论管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="">评论添加</a></dd>
+            <dd><a href="">评论列表</a></dd>
           </dl>
         </li>
       </ul>
@@ -68,8 +82,13 @@
   <div class="layui-body" id="contentView">
     <!-- 内容主体区域 -->
     <div style="padding: 30px;font-size: 40px;">
+      @if(session('info'))
+      <div class="">
+        {{ session('info') }}
+      </div>
+      @endif
       @section('content')
-        Welcome to my blog!
+      Welcome to myblog！
       @show
     </div>
   </div>

@@ -1,11 +1,11 @@
 @extends('layout.admin')
 
-@section('title','分类添加')
+@section('title','分类修改')
 
 @section('content')
 <div class="" style="font-size: 25px;margin-top: 10px;margin-left: 20px;">
 	<div style="font-size: 23px;margin-top: 10px;margin-left: 20px;">
-    	<i class="layui-icon">&#xe655;</i> 分类添加
+    	<i class="layui-icon">&#xe642;</i> 分类修改
   	</div>
 	<hr>
 	@if (count($errors) > 0)
@@ -17,10 +17,10 @@
 		</ul>
 	</div>
 	@endif
-	<form action="{{ url('/admin/cate/{{ $info->id }}') }}" method="post" enctype="multipart/form-data" style="font-size: 20px;margin-top: 10px;margin-left: 20px;">
+	<form action="{{ url('/cate/'.$info->id) }}" method="post" enctype="multipart/form-data" style="font-size: 20px;margin-top: 10px;margin-left: 20px;">
 		{{ csrf_field() }}
 		<div class="layui-form-item">
-			<label class="layui-form-label">分类名</label>
+			<label class="layui-form-label">分类名称</label>
 			<div class="layui-input-block">
 				<input type="text" class="" name="name" placeholder="请输入分类名" value="{{ $info->name }}">
 			</div>

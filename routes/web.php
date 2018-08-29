@@ -25,7 +25,7 @@ Route::get('admin/user/edit/{id}', 'UserController@show');
 Route::post('user/update', 'UserController@update');
 Route::get('admin/user/delete/{id}', 'UserController@destroy');
 // 分类管理 -- RESTful 资源控制器
-Route::resource('admin/cate', 'CateController');
+Route::resource('cate', 'CateController');
 
 
 

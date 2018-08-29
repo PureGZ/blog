@@ -5,7 +5,7 @@
 @section('content')
 <div class="" style="font-size: 25px;margin-top: 10px;margin-left: 20px;">
 	<div style="font-size: 23px;margin-top: 10px;margin-left: 20px;">
-    	<i class="layui-icon">&#xe612;</i> 用户修改
+    	<i class="layui-icon">&#xe642;</i> 用户修改
   	</div>
 	<hr>
 	@if (count($errors) > 0)

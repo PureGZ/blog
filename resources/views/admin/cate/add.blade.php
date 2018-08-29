@@ -17,7 +17,7 @@
 		</ul>
 	</div>
 	@endif
-	<form action="{{ url('/admin/cate') }}" method="post" enctype="multipart/form-data" style="font-size: 20px;margin-top: 10px;margin-left: 20px;">
+	<form action="{{ url('/cate') }}" method="post" enctype="multipart/form-data" style="font-size: 20px;margin-top: 10px;margin-left: 20px;">
 		{{ csrf_field() }}
 		<div class="layui-form-item">
 			<label class="layui-form-label">分类名</label>
