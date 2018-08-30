@@ -28,6 +28,7 @@
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 				{{ csrf_field() }}
+				<input type="hidden" name="id" value="{{ $info->id }}">
 				<input type="hidden" name="_method" value="PUT">
 				<input type="submit" class="layui-btn" value="修改">
 				<input type="reset" class="layui-btn layui-btn-primary" value="重置">

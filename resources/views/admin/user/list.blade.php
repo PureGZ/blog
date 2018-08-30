@@ -62,7 +62,8 @@
               <td class="layui-font-color">{{ $v->id }}</td>
               <td class="layui-font-color">{{ $v->username }}</td>
               <td class="layui-font-color">{{ $v->email }}</td>
-              <td class="layui-font-color"><img class="layui-table img" src="{{ $v->profile }}" alt=""></td>
+              <td class="layui-font-color"><img class="layui-table img" src="{{ $v->profile }}" 
+                width="50" alt=""></td>
               <td class="layui-font-color">{{ $v->created_at }}</td>
               <td class="layui-font-color">{{ $v->updated_at }}</td>
               <td class="layui-font-color">

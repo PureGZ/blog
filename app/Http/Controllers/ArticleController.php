@@ -10,16 +10,18 @@ class ArticleController extends Controller
 {
     /*显示文章列表*/
     public function index(Request $request)
-    {        
-        // 读取文章
-        $articles = article::select(DB::raw('*, concat(path,"_",id) as paths'))->orderBy('paths')->get();
-        // 遍历数组，调整文章名
-        foreach ($articles as $key => $value) {
-            // 判断当前文章等级
-            $tmp = count(explode('_', $value->path)) - 1;
-            $prefix = str_repeat('$~', $tmp);
-            $value -> name = $prefix.$value->name;
-        }
+    {       
+        // 数据分页显示
+        $articles = Post::orderBy('id','desc')
+            ->where(function($query) use ($request) {
+                // 获取关键字
+                $keyword = $request->input('keyword');
+                // 检测参数
+                if (!empty($keyword)) {
+                    $query->where('title', 'like','%'.$keyword.'%');
+                }
+            })
+            ->paginate($request->input('num', 5));
         // 解析模板
         return view('admin.article.list', ['articles'=>$articles, 'request'=>$request]);
     }
@@ -41,23 +43,32 @@ class ArticleController extends Controller
     /*将文章信息存入数据库*/
     public function store(Request $request)
     {
-    	$data = $request -> all();
-        // 如果添加的是顶级文章，pid和path都是0
-        if ($data['pid'] == 0) {
-            $data['path'] = '0';
-        }else {
-            // 如果不是顶级文章，读取父级文章的信息
-            $info = article::find($data['pid']);
-            $data['path'] = $info->path.'_'.$info->id;
-        }
         // 创建模型
-        $article = new article;
-        $article -> name = $data['name'];
-        $article -> pid = $data['pid'];
-        $article -> path = $data['path'];
-        //
+        $article = new Post;
+        $article->title = $request->input('title');
+        $article->content = $request->input('content');
+        $article->cate_id = $request->input('cate_id');
+        // 当前用户登录之后需要将用户的uid写入session中
+        //$article->user_id = 1;
+        // $article->user_id = session('uid');
+        // 检测是否有文件上传
+        if ($request->hasFile('img')) {
+            // 文件的存放目录
+            $path = './uploads/'.date('Ymd');
+            // 获取文件后缀名
+            $extension = $request->img->extension();
+            // 文件的名称
+            $fileName = time().rand(1000, 9999).'.'.$extension;
+            // 保存文件  
+            $request -> file('img')->move($path, $fileName);
+            // 拼接文件上传后路径
+            $article->img = trim($path.'/'.$fileName, '.');
+        }
         if ($article->save()) {
-            return redirect('/article')->with('info', '文章添加成功！');
+            // 将tag数据存入中间表post_tag
+            if ($article->tag()->sync($request->tag_id)) {
+                return redirect('/article')->with('info', '文章添加成功！');
+            }        
         } else {
             return redirect()->back()->with('info', '文章添加失败！');
         } 
@@ -73,34 +84,68 @@ class ArticleController extends Controller
     public function edit($id)
     {
         // 读取当前文章信息
-        $info = article::findOrFail($id);
+        $info = Post::findOrFail($id);
+        $cates = CateController::getCates();
+        $tags = TagController::getTags();
         // 读取
-        $articles = article::get();
+        //$articles = Post::get();
+        // 获取该当前文章的所有标签
+        $allTags = $info->tag->toArray();
+        $ids = [];
+        foreach ($allTags as $key => $value) {
+            $ids[] = $value['id'];
+        }
         // 解析模板
-        return view('admin.article.edit', ['info'=>$info, 'articles'=>$articles]);
+        return view('admin.article.edit', [
+            'info'=>$info,
+            'cates'=>$cates,
+            'tags'=>$tags,
+            'ids'=>$ids,
+            //'articles'=>$articles,
+        ]);
     }
 
     /*文章数据更新*/
     public function update(Request $request, $id)
     {
-        $article = article::findOrFail($id);
-        $article->name = $request->name;
-        $article->pid = $request->pid;
+        $article = Post::findOrFail($id);
+        $article->title = $request->input('title');
+        $article->content = $request->input('content');
+        $article->cate_id = $request->input('cate_id');
+        // 当前用户登录之后需要将用户的uid写入session中
+        //$article->user_id = 1;
+        // $article->user_id = session('uid');
+        // 检测是否有文件上传
+        if ($request->hasFile('img')) {
+            // 文件的存放目录
+            $path = './uploads/'.date('Ymd');
+            // 获取文件后缀名
+            $extension = $request->img->extension();
+            // 文件的名称
+            $fileName = time().rand(1000, 9999).'.'.$extension;
+            // 保存文件  
+            $request -> file('img')->move($path, $fileName);
+            // 拼接文件上传后路径
+            $article->img = trim($path.'/'.$fileName, '.');
+        }
         if ($article->save()) {
-            return redirect('/article')->with('info', '文章更新成功！');
+            // 将tag数据存入中间表post_tag
+            if ($article->tag()->sync($request->tag_id)) {
+                return redirect('/article')->with('info', '文章更新成功！');
+            }        
         } else {
             return redirect()->back()->with('info', '文章更新失败！');
-        }
+        } 
     }
 
     /*文章数据删除*/
     public function destroy($id)
     {
-        // 删除文章
-        $article = article::findOrFail($id);
-        // 删除子集文章
-        $path = $article->path.'_'.$article->id;
-        DB::table('articles')->where('path','like',$path.'%')->delete();
+        // 获取模型
+        $article = Post::findOrFail($id);
+        // 删除文章主图
+        @unlink('.'.$article->img);
+        // 删除文章信息
         if ($article->delete()) {
             return redirect()->back()->with('info', '文章删除成功！');
         } else {

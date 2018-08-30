@@ -47,9 +47,11 @@ class UserController extends Controller
 		    // 获取文件后缀名
 			$extension = $request->profile->extension();
 			// 文件的名称
-			$fileName = time().rand(1000, 9999).'.'.$extension;		
+			$fileName = time().rand(1000, 9999).'.'.$extension;
+            // 保存文件 	
 			$request -> file('profile')->move($path, $fileName);
-			$user -> profile = $path.'/'.$fileName;
+            // 拼接文件上传后路径
+			$user -> profile = trim($path.'/'.$fileName, '.');
 		}
     	// 执行插入--此处如果报错Inflector.php,将php版本更新到最新即可
     	if ($user->save()) {
@@ -101,7 +103,8 @@ class UserController extends Controller
             // 文件的名称
             $fileName = time().rand(1000, 9999).'.'.$extension;     
             $request -> file('profile')->move($path, $fileName);
-            $user -> profile = $path.'/'.$fileName;
+            // 利用trim()将相对路径改为绝对路径
+            $user -> profile = trim($path.'/'.$fileName, '.');
         }
 
         if ($user->save()) {
