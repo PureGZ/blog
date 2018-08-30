@@ -11,16 +11,6 @@
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
     <div class="layui-logo" style="font-size: 30px;color: #dedede;">Myblog</div>
-    <ul class="layui-nav layui-layout-left">
-     <li class="layui-nav-item"><a href="javascript:loadView('KQHD');">考勤</a></li> 
-   <li class="layui-nav-item">
-     <a href="javascript:;">设置</a>
-     <dl class="layui-nav-child">
-       <dd><a href="">消息管理</a></dd>
-       <dd><a href="">授权管理</a></dd>
-     </dl>
-   </li>
-    </ul>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
@@ -66,13 +56,6 @@
           <dl class="layui-nav-child">
             <dd><a href="{{url('/article/create')}}">文章添加</a></dd>
             <dd><a href="{{url('/article')}}">文章列表</a></dd>
-          </dl>
-        </li>
-        <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="">评论管理</a>
-          <dl class="layui-nav-child">
-            <dd><a href="">评论添加</a></dd>
-            <dd><a href="">评论列表</a></dd>
           </dl>
         </li>
       </ul>
