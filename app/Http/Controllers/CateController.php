@@ -12,7 +12,17 @@ class CateController extends Controller
     public function index(Request $request)
     {        
         // 读取分类
-        $cates = Cate::select(DB::raw('*, concat(path,"_",id) as paths'))->orderBy('paths')->get();
+        $cates = self::getCates();
+        // 解析模板
+        return view('admin.cate.list', ['cates'=>$cates, 'request'=>$request]);
+    }
+
+    /*获取所有的分类信息并且排序*/
+    public static function getCates()
+    {
+        // 读取分类
+        $cates = Cate::select(
+            DB::raw('*, concat(path,"_",id) as paths'))->orderBy('paths')->get();
         // 遍历数组，调整分类名
         foreach ($cates as $key => $value) {
             // 判断当前分类等级
@@ -20,8 +30,7 @@ class CateController extends Controller
             $prefix = str_repeat('$~', $tmp);
             $value -> name = $prefix.$value->name;
         }
-        // 解析模板
-        return view('admin.cate.list', ['cates'=>$cates, 'request'=>$request]);
+        return $cates;
     }
 
     /*创建分类页面*/

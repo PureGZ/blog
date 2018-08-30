@@ -24,11 +24,13 @@ Route::get('admin/user/list', 'UserController@list');
 Route::get('admin/user/edit/{id}', 'UserController@show');
 Route::post('user/update', 'UserController@update');
 Route::get('admin/user/delete/{id}', 'UserController@destroy');
-// 分类管理 -- RESTful 资源控制器
+/*RESTful 资源控制器*/
+// 分类管理
 Route::resource('cate', 'CateController');
 // 标签管理
 Route::resource('tag', 'TagController');
-
+// 文章管理
+Route::resource('article', 'ArticleController');
 
 
 

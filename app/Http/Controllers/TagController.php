@@ -26,6 +26,12 @@ class TagController extends Controller
         return view('admin.tag.list', ['tags'=>$tags, 'request'=>$request]);
     }
 
+    /*获取所有的标签信息并且排序*/
+    public static function getTags()
+    {
+        return Tag::orderBy('id','desc')->get();
+    }
+
     /*创建标签页面*/
     public function create()
     {
