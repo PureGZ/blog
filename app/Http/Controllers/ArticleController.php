@@ -49,7 +49,7 @@ class ArticleController extends Controller
         $article->content = $request->input('content');
         $article->cate_id = $request->input('cate_id');
         // 当前用户登录之后需要将用户的uid写入session中
-        //$article->user_id = 1;
+        $article->user_id = 1;
         // $article->user_id = session('uid');
         // 检测是否有文件上传
         if ($request->hasFile('img')) {
@@ -87,8 +87,6 @@ class ArticleController extends Controller
         $info = Post::findOrFail($id);
         $cates = CateController::getCates();
         $tags = TagController::getTags();
-        // 读取
-        //$articles = Post::get();
         // 获取该当前文章的所有标签
         $allTags = $info->tag->toArray();
         $ids = [];
@@ -101,7 +99,6 @@ class ArticleController extends Controller
             'cates'=>$cates,
             'tags'=>$tags,
             'ids'=>$ids,
-            //'articles'=>$articles,
         ]);
     }
 
@@ -112,9 +109,7 @@ class ArticleController extends Controller
         $article->title = $request->input('title');
         $article->content = $request->input('content');
         $article->cate_id = $request->input('cate_id');
-        // 当前用户登录之后需要将用户的uid写入session中
-        //$article->user_id = 1;
-        // $article->user_id = session('uid');
+        $article->user_id = 1;
         // 检测是否有文件上传
         if ($request->hasFile('img')) {
             // 文件的存放目录
