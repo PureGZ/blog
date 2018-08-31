@@ -16,4 +16,10 @@ class Post extends Model
     {
         return $this->belongsTo('App\Cate');
     }
+    /*属于该文章的分类 cate-post：一对多*/
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

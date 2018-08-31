@@ -77,7 +77,10 @@ class ArticleController extends Controller
     /**/
     public function show($id)
     {
-        # code...
+        // 读取文章信息
+        $article = Post::findOrFail($id);
+        // 显示文章详情
+        return view('home.detail', ['article'=>$article]);
     }
 
     /*将数据引入文章信息修改界面*/
@@ -146,5 +149,14 @@ class ArticleController extends Controller
         } else {
             return redirect()->back()->with('info', '文章删除失败！');
         }
+    }
+
+    /*前端文章列表显示*/
+    public function lists()
+    {
+        // 读取文章列表
+        $articles = Post::orderBy('id', 'desc')->paginate(5);
+        // 显示列表
+        return view('home.lists', ['articles'=>$articles]);
     }
 }

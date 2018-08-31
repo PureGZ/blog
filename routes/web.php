@@ -11,11 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ArticleController@lists');
 
-/*后台路由群组--中间件管理登录权限*/
+/*后台路由组--中间件管理登录权限*/
 Route::group(['middleware'=>'login'], function() {
 	// 后台主页
 	Route::get('/admin', 'AdminController@index');
@@ -26,7 +24,7 @@ Route::group(['middleware'=>'login'], function() {
 	Route::get('admin/user/edit/{id}', 'UserController@show');
 	Route::post('user/update', 'UserController@update');
 	Route::get('admin/user/delete/{id}', 'UserController@destroy');
-	/*RESTful 资源控制器*/
+	/*下面改用：RESTful资源控制器*/
 	// 分类管理
 	Route::resource('cate', 'CateController');
 	// 标签管理
@@ -35,9 +33,16 @@ Route::group(['middleware'=>'login'], function() {
 	Route::resource('article', 'ArticleController');
 });
 
-// 登录
+// 后台登录
 Route::get('/login', 'LoginController@login');
 Route::post('/login', 'LoginController@dologin');
 Route::get('/logout', 'LoginController@logout');
 
 
+// 前端文章显示
+Route::get('/article/{id}.html', [
+	"uses"=>'ArticleController@show',
+	'as'=>'detail'
+]);
+
+Route::get('articles', 'ArticleController@lists');
