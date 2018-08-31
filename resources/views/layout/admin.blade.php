@@ -79,7 +79,7 @@
 
   <div class="layui-footer">
     <!-- 底部固定区域 -->
-    <center>Welcome to myblog@puregz  #2018.8.13--2018.9.1</center>>
+    <center>Welcome to myblog @ puregz  #2018.8.13--2018.8.31</center>>
   </div>
 </div>
 <script src="/layui/layui.js"></script>
