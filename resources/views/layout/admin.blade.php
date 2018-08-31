@@ -13,16 +13,17 @@
     <div class="layui-logo" style="font-size: 30px;color: #dedede;">Myblog</div>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
+        <?php $user = \App\User::find(session('uid')); ?>
         <a href="javascript:;">
-          <img class="layui-nav-img">
-          纯洁的哥子
+          <img class="layui-nav-img" src="{{ $user->profile }}">
+          {{ $user->username }}
         </a>
         <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
+          <dd><a href="">个人资料</a></dd>
+          <dd><a href="">修改密码</a></dd>
+          <dd><a href="/logout">注销</a></dd>
         </dl>
       </li>
-      <li class="layui-nav-item"><a href="">注销</a></li>
     </ul>
   </div>
 
